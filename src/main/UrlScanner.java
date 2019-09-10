@@ -26,13 +26,13 @@ public class UrlScanner implements Runnable {
         setThreadName();
         int limit = manager.getMaxUrlsPerPage();
 
-        log.info("Scanning URL " + url + " for maximum of " + limit + " pagse");
+        log.debug("Scanning URL " + url + " for maximum of " + limit + " pagse");
         List<String> links = getLinks();
         for (int i = 0; i < links.size() && limit > 0; i++) {
             String link = links.get(i);
             if (manager.addUrlToDepth(link, depth + 1)) {
                 limit--;
-                log.info("Found " + link);
+                log.debug("Found " + link);
             }
         }
         manager.workFinished();
@@ -47,7 +47,7 @@ public class UrlScanner implements Runnable {
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
-            log.error("Unable to connect to url " + url);
+            log.warn("Unable to connect to url " + url);
             return new ArrayList<>();
         }
         return doc.select("a[href]").stream()

@@ -63,7 +63,7 @@ public class ScanManager {
         File filesDir = initFilesDirectory();
         for (int depth = 0; depth <= maxDepth; depth++) {
             if (depthToUrls.size() == depth) {
-                log.info("No URLs found for depth " + depth);
+                log.debug("No URLs found for depth " + depth);
                 break;
             }
             Set<String> urlsByDepth = depthToUrls.get(depth);
@@ -76,7 +76,7 @@ public class ScanManager {
     private File initFilesDirectory() {
         File filesDir = new File(System.getProperty("user.dir"), "files");
         if (filesDir.mkdir()) {
-            log.info("Created new dir " + filesDir.getAbsolutePath());
+            log.info("Created new dir for output files - " + filesDir.getAbsolutePath());
         }
         return filesDir;
     }

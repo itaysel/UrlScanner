@@ -18,7 +18,7 @@ public class UrlSaver implements Runnable {
         this.manager = manager;
         this.url = url;
         dir = new File(fileDir, depth.toString());
-        this.fileName = url.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+        this.fileName = url.replaceAll("[^a-zA-Z0-9.\\-]", "_");
     }
 
     @Override
@@ -43,17 +43,17 @@ public class UrlSaver implements Runnable {
     private void writeToFile(File file, String content) {
         try {
             FileWriter fileWriter = new FileWriter(file);
-            log.info("Saving file \"" + file.getAbsolutePath() + "\"");
+            log.debug("Saving file \"" + file.getAbsolutePath() + "\"");
             fileWriter.write(content);
             fileWriter.close();
         } catch (IOException e) {
-            log.error("IO Exception when creating new file " + file.getAbsolutePath(), e);
+            log.warn("IO Exception when creating new file " + file.getAbsolutePath(), e);
         }
     }
 
     private File createFileInDir() {
         if (dir.mkdirs()) {
-            log.info("Created new dir " + dir.getAbsolutePath());
+            log.debug("Created new dir " + dir.getAbsolutePath());
         }
         File file = new File(dir, fileName);
         try {
@@ -63,7 +63,7 @@ public class UrlSaver implements Runnable {
                 }
             }
         } catch (IOException e) {
-            log.error("IO Exception when creating new file " + file.getAbsolutePath());
+            log.warn("IO Exception when creating new file " + file.getAbsolutePath());
         }
         return null;
     }
@@ -72,7 +72,7 @@ public class UrlSaver implements Runnable {
         try {
             return Jsoup.connect(url).get().html();
         } catch (IOException e) {
-            log.error("Unable to connect to url " + url);
+            log.warn("Unable to connect to url " + url);
         }
         return null;
     }
