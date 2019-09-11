@@ -10,3 +10,9 @@ Excpected Input:
  Unique - set to 'true' to prevent going to the same link twice
 
 Example: java UrlScanner https://www.ynetnews.com 5 2 true
+
+
+TODO:
+ * validate connectivity to URL before adding it
+ * Support relative URLs
+ * Test classes
